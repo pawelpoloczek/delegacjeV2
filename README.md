@@ -1,12 +1,12 @@
-#Docker LAMP
+# Docker LAMP
 
 Docker settings for setup LAMP environment with composer and virtual hosts. Configured php extensions: zip, pdo, pdo_mysql, mysqli, gd. Configured applications/libraries: libpng-dev, libfreetype6-dev, libjpeg62-turbo-dev, nano, composer, php (7.2.1), apache2 (2.4.25), mysql (mariadb 10.1.35), adminer (4.6.3).
 
-##Setup containers
+## Setup containers
 - Install docker-ce [https://docs.docker.com/install/](https://docs.docker.com/install/) 
 - Clone or download repository and run docker compose in the repository directory: `docker-compose up`
 
-###Useful docker commands
+### Useful docker commands
 - setup containers with rebuild: `docker-compose --build`
 - list all containers identifiers: `docker ps -a -q`
 - stop container: `docker stop CONTAINER_ID`
