@@ -2,7 +2,7 @@ FROM php:7.2.1-apache
 MAINTAINER Paweł Poloczek
 
 # Copy virtual host configurations
-COPY . /etc/apache2/sites-available/
+COPY ./vhosts/ /etc/apache2/sites-available/
 
 # install php extensions
 RUN apt-get update -y && apt-get install -y libpng-dev libfreetype6-dev libjpeg62-turbo-dev nano
