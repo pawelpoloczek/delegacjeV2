@@ -24,6 +24,11 @@ class PersonEditCtrl {
         $this->form->name = ParamUtils::getFromRequest('name', true, 'Błędne wywołanie aplikacji');
         $this->form->surname = ParamUtils::getFromRequest('surname', true, 'Błędne wywołanie aplikacji');
         $this->form->birthdate = ParamUtils::getFromRequest('birthdate', true, 'Błędne wywołanie aplikacji');
+        $this->form->jobTitle = ParamUtils::getFromRequest('jobTitle', true, 'Błędne wywołanie aplikacji');
+        $this->form->jobPlace = ParamUtils::getFromRequest('jobPlace', true, 'Błędne wywołanie aplikacji');
+        $this->form->userName = ParamUtils::getFromRequest('userName', true, 'Błędne wywołanie aplikacji');
+        $this->form->role = ParamUtils::getFromRequest('role', true, 'Błędne wywołanie aplikacji');
+        $this->form->password = ParamUtils::getFromRequest('password', true, 'Błędne wywołanie aplikacji');
 
         if (App::getMessages()->isError())
             return false;
@@ -38,6 +43,21 @@ class PersonEditCtrl {
         if (empty(trim($this->form->birthdate))) {
             Utils::addErrorMessage('Wprowadź datę urodzenia');
         }
+        if (empty(trim($this->form->jobTitle))) {
+            Utils::addErrorMessage('Wprowadź nazwę stanowiska');
+        }
+        if (empty(trim($this->form->jobPlace))) {
+            Utils::addErrorMessage('Wprowadź miejsce');
+        }
+        if (empty(trim($this->form->userName))) {
+            Utils::addErrorMessage('Wprowadź nazwę użytkownika');
+        }
+        if (empty(trim($this->form->role))) {
+            Utils::addErrorMessage('Wprowadź role użytkownikas');
+        }
+        if (empty(trim($this->form->password))) {
+            Utils::addErrorMessage('Wprowadź hasło');
+        }
 
         if (App::getMessages()->isError())
             return false;
@@ -45,6 +65,7 @@ class PersonEditCtrl {
         // 2. sprawdzenie poprawności przekazanych parametrów
 
         $d = \DateTime::createFromFormat('Y-m-d', $this->form->birthdate);
+
         if ($d === false) {
             Utils::addErrorMessage('Zły format daty. Przykład: 2015-12-20');
         }
@@ -71,13 +92,18 @@ class PersonEditCtrl {
             try {
                 // 2. odczyt z bazy danych osoby o podanym ID (tylko jednego rekordu)
                 $record = App::getDB()->get("person", "*", [
-                    "idperson" => $this->form->id
+                    "id" => $this->form->id
                 ]);
                 // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
-                $this->form->id = $record['idperson'];
+                $this->form->id = $record['id'];
                 $this->form->name = $record['name'];
                 $this->form->surname = $record['surname'];
                 $this->form->birthdate = $record['birthdate'];
+                $this->form->jobTitle = $record['job_title'];
+                $this->form->jobPlace = $record['job_place'];
+                $this->form->userName = $record['user_name'];
+                $this->form->role = $record['role'];
+                $this->form->password = $record['password'];
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
                 if (App::getConf()->debug)
@@ -96,7 +122,7 @@ class PersonEditCtrl {
             try {
                 // 2. usunięcie rekordu
                 App::getDB()->delete("person", [
-                    "idperson" => $this->form->id
+                    "id" => $this->form->id
                 ]);
                 Utils::addInfoMessage('Pomyślnie usunięto rekord');
             } catch (\PDOException $e) {
@@ -125,7 +151,12 @@ class PersonEditCtrl {
                         App::getDB()->insert("person", [
                             "name" => $this->form->name,
                             "surname" => $this->form->surname,
-                            "birthdate" => $this->form->birthdate
+                            "birthdate" => $this->form->birthdate,
+                            "job_title" => $this->form->jobTitle,
+                            "job_place" => $this->form->jobPlace,
+                            "user_name" => $this->form->userName,
+                            "role" => $this->form->role,
+                            "password" => $this->form->password
                         ]);
                     } else { //za dużo rekordów
                         // Gdy za dużo rekordów to pozostań na stronie
@@ -138,9 +169,11 @@ class PersonEditCtrl {
                     App::getDB()->update("person", [
                         "name" => $this->form->name,
                         "surname" => $this->form->surname,
-                        "birthdate" => $this->form->birthdate
+                        "birthdate" => $this->form->birthdate,
+                        "job_title" => $this->form->jobTitle,
+                        "job_place" => $this->form->jobPlace
                             ], [
-                        "idperson" => $this->form->id
+                        "id" => $this->form->id
                     ]);
                 }
                 Utils::addInfoMessage('Pomyślnie zapisano rekord');

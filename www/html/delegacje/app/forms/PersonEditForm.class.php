@@ -7,4 +7,9 @@ class PersonEditForm {
 	public $name;
 	public $surname;
 	public $birthdate;
+        public $jobTitle;
+        public $jobPlace;
+        public $userName;
+        public $role;
+        public $password;
 }
