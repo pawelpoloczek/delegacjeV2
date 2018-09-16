@@ -16,5 +16,5 @@ Docker settings for setup LAMP environment with composer and virtual hosts. Conf
 - list all images: `docker images --all`
 - remove all images: `docker rmi $(docker images --all)`
 - login to container bash: `docker exec -it CONTAINER_NAME /bin/bash`
-- check container IP address: `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' CONATINER_NAME`
+- check container IP address: `docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' CONTAINER_NAME`
 - check docker network: `docker network ls`, `docker network inspect NETWORK_NAME`
