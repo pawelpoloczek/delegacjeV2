@@ -2,11 +2,13 @@
 
 namespace app\forms;
 
-class CarEditForm {
+class DelegationEditForm {
 	public $id;
-	public $brand;
-	public $model;
-	public $registrationNumber;
-        public $cubicCapacity;
-        public $productionYear;
+	public $distance;
+	public $startTime;
+	public $endTime;
+        public $cityFrom;
+        public $cityTo;
+        public $personId;
+        public $carId;
 }

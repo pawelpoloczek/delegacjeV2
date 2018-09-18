@@ -2,6 +2,6 @@
 
 namespace app\forms;
 
-class CarSearchForm {
-	public $registrationNumber;
+class DelegationSearchForm {
+	public $personId;
 } 

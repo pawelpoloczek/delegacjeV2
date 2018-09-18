@@ -41,9 +41,9 @@
                         <td>{$c["cubic_capacity"]}</td>
                         <td>{$c["production_year"]}</td>
                         <td>
-                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}carEdit/{$p['id']}">Edytuj</a>
+                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}carEdit/{$c['id']}">Edytuj</a>
                             &nbsp;
-                            <a class="button-small pure-button button-warning" href="{$conf->action_url}carDelete/{$p['id']}">Usuń</a>
+                            <a class="button-small pure-button button-warning" href="{$conf->action_url}carDelete/{$c['id']}">Usuń</a>
                         </td>
                     </tr>
                 {/strip}

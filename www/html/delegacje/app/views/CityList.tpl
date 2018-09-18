@@ -33,9 +33,9 @@
                     <tr>
                         <td>{$ci["name"]}</td>
                         <td>
-                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}cityEdit/{$p['id']}">Edytuj</a>
+                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}cityEdit/{$ci['id']}">Edytuj</a>
                             &nbsp;
-                            <a class="button-small pure-button button-warning" href="{$conf->action_url}cityDelete/{$p['id']}">Usuń</a>
+                            <a class="button-small pure-button button-warning" href="{$conf->action_url}cityDelete/{$ci['id']}">Usuń</a>
                         </td>
                     </tr>
                 {/strip}

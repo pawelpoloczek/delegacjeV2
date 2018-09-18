@@ -5,22 +5,22 @@ namespace app\controllers;
 use core\App;
 use core\Utils;
 use core\ParamUtils;
-use app\forms\CarSearchForm;
+use app\forms\DelegationSearchForm;
 
-class CarListCtrl {
+class DelegationListCtrl {
 
     private $form; //dane formularza wyszukiwania
     private $records; //rekordy pobrane z bazy danych
 
     public function __construct() {
         //stworzenie potrzebnych obiektów
-        $this->form = new CarSearchForm();
+        $this->form = new DelegationSearchForm();
     }
 
     public function validate() {
         // 1. sprawdzenie, czy parametry zostały przekazane
         // - nie trzeba sprawdzać
-        $this->form->surname = ParamUtils::getFromRequest('sf_registrationnumber');
+        $this->form->personId = ParamUtils::getFromRequest('sf_personId');
 
         // 2. sprawdzenie poprawności przekazanych parametrów
         // - nie trzeba sprawdzać
@@ -28,7 +28,7 @@ class CarListCtrl {
         return !App::getMessages()->isError();
     }
 
-    public function action_carList() {
+    public function action_delegationList() {
         // 1. Walidacja danych formularza (z pobraniem)
         // - W tej aplikacji walidacja nie jest potrzebna, ponieważ nie wystąpią błedy podczas podawania nazwiska.
         //   Jednak pozostawiono ją, ponieważ gdyby uzytkownik wprowadzał np. datę, lub wartość numeryczną, to trzeba
@@ -37,8 +37,8 @@ class CarListCtrl {
 
         // 2. Przygotowanie mapy z parametrami wyszukiwania (nazwa_kolumny => wartość)
         $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
-        if (isset($this->form->registrationNumber) && strlen($this->form->registrationNumber) > 0) {
-            $search_params['registrationNumber[~]'] = $this->form->registrationNumber . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+        if (isset($this->form->personId) && strlen($this->form->personId) > 0) {
+            $search_params['personId[~]'] = $this->form->personId . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
         }
 
         // 3. Pobranie listy rekordów z bazy danych
@@ -52,17 +52,19 @@ class CarListCtrl {
             $where = &$search_params;
         }
         //dodanie frazy sortującej po nazwisku
-        $where ["ORDER"] = "registration_number";
+        $where ["ORDER"] = "person_id";
         //wykonanie zapytania
 
         try {
-            $this->records = App::getDB()->select("car", [
+            $this->records = App::getDB()->select("delegation", [
                 "id",
-                "model",
-                "brand",
-                "registration_number",
-                "cubic_capacity",
-                "production_year"
+                "distance",
+                "start_time",
+                "end_time",
+                "city_from",
+                "city_to",
+                "person_id",
+                "car_id"
                     ], $where);
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
@@ -72,8 +74,8 @@ class CarListCtrl {
 
         // 4. wygeneruj widok
         App::getSmarty()->assign('searchForm', $this->form); // dane formularza (wyszukiwania w tym wypadku)
-        App::getSmarty()->assign('car', $this->records);  // lista rekordów z bazy danych
-        App::getSmarty()->display('CarList.tpl');
+        App::getSmarty()->assign('delegation', $this->records);  // lista rekordów z bazy danych
+        App::getSmarty()->display('DelegationList.tpl');
     }
 
 }
