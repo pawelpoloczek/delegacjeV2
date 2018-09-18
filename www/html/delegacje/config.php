@@ -9,7 +9,7 @@ $conf->app_root = '/delegacje/public';   # project subfolder in domain (relative
 # ---- Database config - values required by Medoo
 $conf->db_type = 'mysql';
 $conf->db_server = 'mariadb';
-$conf->db_name = 'delegacje';
+$conf->db_name = 'delegations';
 $conf->db_user = 'root';
 $conf->db_pass = 'root';
 $conf->db_charset = 'utf8';
