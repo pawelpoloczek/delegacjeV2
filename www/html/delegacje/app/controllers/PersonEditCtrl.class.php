@@ -53,7 +53,7 @@ class PersonEditCtrl {
             Utils::addErrorMessage('Wprowadź nazwę użytkownika');
         }
         if (empty(trim($this->form->role))) {
-            Utils::addErrorMessage('Wprowadź role użytkownikas');
+            Utils::addErrorMessage('Wprowadź role użytkownika');
         }
         if (empty(trim($this->form->password))) {
             Utils::addErrorMessage('Wprowadź hasło');
@@ -63,11 +63,25 @@ class PersonEditCtrl {
             return false;
 
         // 2. sprawdzenie poprawności przekazanych parametrów
+        $check_birth = $this->form->birthdate;
+        $check_name = $this->form->name;
+        $check_surname = $this->form->surname;
 
-        $d = \DateTime::createFromFormat('Y-m-d', $this->form->birthdate);
+        $d = checkdate(substr($check_birth, 5, 2), substr($check_birth, 8, 2), substr($check_birth, 0, 4));
+        if ($d === false || strlen($check_birth) <> 10) {
+            Utils::addErrorMessage('Zły format daty. Przykład: 2018-12-20 lub błędna data');
+        }
 
-        if ($d === false) {
-            Utils::addErrorMessage('Zły format daty. Przykład: 2015-12-20');
+        function my_mb_ucfirst($str) {
+            $fc = mb_strtoupper(mb_substr($str, 0, 1));
+            return $fc . mb_substr($str, 1);
+        }
+
+        $this->form->name = my_mb_ucfirst($check_name);
+        $this->form->surname = my_mb_ucfirst($check_surname);
+
+        if (ctype_alpha($check_name) === false || ctype_alpha($check_surname) === false) {
+            Utils::addErrorMessage('Błędne imię lub nazwisko');
         }
 
         return !App::getMessages()->isError();

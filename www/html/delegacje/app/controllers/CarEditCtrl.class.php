@@ -52,7 +52,30 @@ class CarEditCtrl {
 
         // 2. sprawdzenie poprawności przekazanych parametrów
 
-      
+        function my_mb_ucfirst($str) {
+            $fc = mb_strtoupper(mb_substr($str, 0, 1));
+            return $fc . mb_substr($str, 1);
+        }
+
+        $check_brand = $this->form->brand;
+        $check_registrationNumber = $this->form->registrationNumber;
+        $check_cubicCapacity = $this->form->cubicCapacity;
+        $check_productionYear = $this->form->productionYear;
+
+        $this->form->brand = my_mb_ucfirst($check_brand);
+
+        if (strlen($check_registrationNumber) <> 6) {
+            Utils::addErrorMessage('Podano błędy numer rejestracyjny');
+        }
+
+        if (is_numeric($check_productionYear) === false || strlen($check_productionYear) <> 4 || date("Y") < $check_productionYear) {
+            Utils::addErrorMessage('Podano błędy rok produkcji');
+        }
+
+        if (is_numeric($check_cubicCapacity) === false) {
+            Utils::addErrorMessage('Błędna wartość pojemności');
+        }
+
 
         return !App::getMessages()->isError();
     }

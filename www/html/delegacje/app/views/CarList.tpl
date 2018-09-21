@@ -6,7 +6,7 @@
         <form class="pure-form pure-form-stacked" action="{$conf->action_url}carList">
             <legend>Opcje wyszukiwania</legend>
             <fieldset>
-                <input type="text" placeholder="Numer rejestracyjny" name="sf_registrationNumber" value="{$searchForm->registrationNumber}" /><br />
+                <input type="text" placeholder="Numer rejestracyjny" name="registrationNumber" value="{$searchForm->registrationNumber}" /><br />
                 <button type="submit" class="pure-button pure-button-primary">Filtruj</button>
             </fieldset>
         </form>

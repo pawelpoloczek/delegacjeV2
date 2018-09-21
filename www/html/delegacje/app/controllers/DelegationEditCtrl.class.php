@@ -28,7 +28,7 @@ class DelegationEditCtrl {
         $this->form->cityTo = ParamUtils::getFromRequest('cityTo', true, 'Błędne wywołanie aplikacji');
         $this->form->personId = ParamUtils::getFromRequest('personId', true, 'Błędne wywołanie aplikacji');
         $this->form->carId = ParamUtils::getFromRequest('carId', true, 'Błędne wywołanie aplikacji');
-        
+
         if (App::getMessages()->isError())
             return false;
 
@@ -59,9 +59,27 @@ class DelegationEditCtrl {
             return false;
 
         // 2. sprawdzenie poprawności przekazanych parametrów
+        $check_distance = is_numeric($this->form->distance);
+        if ($check_distance === false) {
+            Utils::addErrorMessage('Dystans musi być liczbą');
+        }
+        
+        //sprawdzenie poprawnosci daty
+        
+        $sT = $this->form->startTime;
+        $eT = $this->form->endTime;
 
-      
+        $check_timeStart = checkdate(substr($sT, 5, 2), substr($sT, 8, 2), substr($sT, 0, 4));
+        $check_timeEnd = checkdate(substr($eT, 5, 2), substr($eT, 8, 2), substr($eT, 0, 4));
 
+        if ($check_timeEnd === false || strlen($eT) <> 10) {
+            Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 lub czeski błąd');
+        }
+
+        if ($check_timeStart === false || strlen($sT) <> 10) {
+            Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 lub czeski błąd');
+        }
+        
         return !App::getMessages()->isError();
     }
 

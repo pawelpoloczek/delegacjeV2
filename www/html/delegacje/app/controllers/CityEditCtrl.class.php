@@ -35,8 +35,15 @@ class CityEditCtrl {
 
         // 2. sprawdzenie poprawności przekazanych parametrów
 
-      
+        $check_name = $this->form->name;
 
+        if (ctype_alpha($check_name) === false) {
+            Utils::addErrorMessage('Błędna nazwa');
+        }
+
+$this->form->name = ucfirst($check_name);
+
+        
         return !App::getMessages()->isError();
     }
 

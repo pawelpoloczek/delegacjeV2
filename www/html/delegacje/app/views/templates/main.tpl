@@ -13,7 +13,7 @@
 
                     <div class="pure-menu pure-menu-horizontal bottom-margin">
 
-                        {if count($conf->roles)>0}
+                        {if count($conf->roles)===1}
                             <a href="{$conf->action_root}delegationList" class="pure-menu-heading pure-menu-link">Delegacje</a>
                             <a href="{$conf->action_root}cityList" class="pure-menu-heading pure-menu-link">Miasta</a>
                             <a href="{$conf->action_root}carList" class="pure-menu-heading pure-menu-link">Samochody</a>
