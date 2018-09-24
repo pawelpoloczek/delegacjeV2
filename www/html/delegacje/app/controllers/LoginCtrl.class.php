@@ -15,8 +15,7 @@ class LoginCtrl {
     public function __construct() {
         //stworzenie potrzebnych obiektów
         $this->form = new LoginForm();
-    }// $this->form->userName = userName;
-        //$this->form->password = password;
+    }
 
     public function validate() {
         $this->form->login = ParamUtils::getFromRequest('login');
@@ -38,16 +37,35 @@ class LoginCtrl {
         if (App::getMessages()->isError())
             return false;
 
-        // sprawdzenie, czy dane logowania poprawne
-        // (takie informacje najczęściej przechowuje się w bazie danych)
-        if ($this->form->login == "admin" && $this->form->pass == "admin") {
-            RoleUtils::addRole('admin');
-        } else if ($this->form->login == "user" && $this->form->pass == "user") {
-            RoleUtils::addRole('user');
-        } else {
+         
+        $user = App::getDB()->select("person",  [
+            "user_name",
+            "role",
+            "password"
+                ], $where);
+
+        if ($user == false) {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
+            return false;
         }
 
+        if ($user["role"] == 'admin') {
+            RoleUtils::addRole('admin');
+        } else {
+            RoleUtils::addRole('user');
+        }
+
+        /*
+          // sprawdzenie, czy dane logowania poprawne
+          // (takie informacje najczęściej przechowuje się w bazie danych)
+          if ($this->form->login == 'admin' && $this->form->pass == 'admin') {
+          RoleUtils::addRole('admin');
+          } else if ($this->form->login == "user" && $this->form->pass == "user") {
+          RoleUtils::addRole('user');
+          } else {
+          Utils::addErrorMessage('Niepoprawny login lub hasło');
+          }
+         */
         return !App::getMessages()->isError();
     }
 

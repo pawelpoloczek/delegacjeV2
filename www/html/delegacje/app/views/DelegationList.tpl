@@ -6,7 +6,7 @@
         <form class="pure-form pure-form-stacked" action="{$conf->action_url}delegationList">
             <legend>Opcje wyszukiwania</legend>
             <fieldset>
-                <input type="text" placeholder="Osoba" name="sf_personId" value="{$searchForm->personId}" /><br />
+                <input type="text" placeholder="Login użytkownika" name="personUserName" value="{$searchForm->personUserName}" /><br />
                 <button type="submit" class="pure-button pure-button-primary">Filtruj</button>
             </fieldset>
         </form>
@@ -40,10 +40,10 @@
                         <td>{$d["distance"]}</td>
                         <td>{$d["start_time"]}</td>
                         <td>{$d["end_time"]}</td>
-                        <td>{$d["city_from"]}</td>
-                        <td>{$d["city_to"]}</td>
-                        <td>{$d["person_id"]}</td>
-                        <td>{$d["car_id"]}</td>
+                        <td>{$d["cityFrom"]}</td>
+                        <td>{$d["cityTo"]}</td>
+                        <td>{$d["name"]}, {$d["surname"]}, {$d["user_name"]}</td>
+                        <td>{$d["brand"]}, {$d["model"]}, {$d["registration_number"]}</td>
                         <td>
                             <a class="button-small pure-button button-secondary" href="{$conf->action_url}delegationEdit/{$d['id']}">Edytuj</a>
                             &nbsp;

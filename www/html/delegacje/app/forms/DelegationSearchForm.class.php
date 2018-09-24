@@ -3,5 +3,5 @@
 namespace app\forms;
 
 class DelegationSearchForm {
-	public $personId;
+	public $personUserName;
 } 

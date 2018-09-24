@@ -20,7 +20,7 @@ class DelegationListCtrl {
     public function validate() {
         // 1. sprawdzenie, czy parametry zostały przekazane
         // - nie trzeba sprawdzać
-        $this->form->personId = ParamUtils::getFromRequest('sf_personId');
+        $this->form->personUserName = ParamUtils::getFromRequest('personUserName');
 
         // 2. sprawdzenie poprawności przekazanych parametrów
         // - nie trzeba sprawdzać
@@ -37,8 +37,8 @@ class DelegationListCtrl {
 
         // 2. Przygotowanie mapy z parametrami wyszukiwania (nazwa_kolumny => wartość)
         $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
-        if (isset($this->form->personId) && strlen($this->form->personId) > 0) {
-            $search_params['personId[~]'] = $this->form->personId . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+        if (isset($this->form->personUserName) && strlen($this->form->personUserName) > 0) {
+            $search_params['person.user_name[~]'] = $this->form->personUserName . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
         }
 
         // 3. Pobranie listy rekordów z bazy danych
@@ -52,20 +52,35 @@ class DelegationListCtrl {
             $where = &$search_params;
         }
         //dodanie frazy sortującej po nazwisku
-        $where ["ORDER"] = "person_id";
+        $where ["ORDER"] = "user_name";
         //wykonanie zapytania
-
+            
         try {
-            $this->records = App::getDB()->select("delegation", [
-                "id",
-                "distance",
-                "start_time",
-                "end_time",
-                "city_from",
-                "city_to",
-                "person_id",
-                "car_id"
-                    ], $where);
+            
+            $this->records = App::getDB()->select(
+                    'delegation', [
+                '[>]car' => ['car_id' => 'id'],
+                '[>]person' => ['person_id' => 'id'],
+                '[>]city(cityFrom)' => ['city_from' => 'id'],
+                '[>]city(cityTo)' => ['city_to' => 'id'],
+                    ], [
+                'delegation.id',
+                'delegation.distance',
+                'delegation.start_time',
+                'delegation.end_time',
+                'delegation.city_from',
+                'delegation.city_to',
+                'car.brand',
+                'car.model',
+                'car.registration_number',
+                'cityFrom.name (cityFrom)',
+                'cityTo.name (cityTo)',
+                'person.name',
+                'person.surname',
+                'person.user_name'
+                    ], $where
+            );
+            
         } catch (\PDOException $e) {
             Utils::addErrorMessage('Wystąpił błąd podczas pobierania rekordów');
             if (App::getConf()->debug)

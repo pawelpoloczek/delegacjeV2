@@ -72,12 +72,12 @@ class DelegationEditCtrl {
         $check_timeStart = checkdate(substr($sT, 5, 2), substr($sT, 8, 2), substr($sT, 0, 4));
         $check_timeEnd = checkdate(substr($eT, 5, 2), substr($eT, 8, 2), substr($eT, 0, 4));
 
-        if ($check_timeEnd === false || strlen($eT) <> 10) {
-            Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 lub czeski błąd');
+        if ($check_timeEnd === false) {
+            Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 00:00:00 lub czeski błąd');
         }
 
-        if ($check_timeStart === false || strlen($sT) <> 10) {
-            Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 lub czeski błąd');
+        if ($check_timeStart === false) {
+            Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 00:00:00 lub czeski błąd');
         }
         
         return !App::getMessages()->isError();

@@ -20,7 +20,7 @@ class CarListCtrl {
     public function validate() {
         // 1. sprawdzenie, czy parametry zostały przekazane
         // - nie trzeba sprawdzać
-        $this->form->registrationNumber = ParamUtils::getFromRequest('registration_number');
+        $this->form->registrationNumber = ParamUtils::getFromRequest('registrationNumber');
 
         // 2. sprawdzenie poprawności przekazanych parametrów
         // - nie trzeba sprawdzać
