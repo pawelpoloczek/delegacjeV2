@@ -55,7 +55,7 @@ class PersonEditCtrl {
         if (empty(trim($this->form->role))) {
             Utils::addErrorMessage('Wprowadź role użytkownika');
         }
-        if (empty(trim($this->form->password))) {
+        if (empty(trim($this->form->password)) && empty(trim($this->form->id))) {
             Utils::addErrorMessage('Wprowadź hasło');
         }
 
@@ -117,7 +117,6 @@ class PersonEditCtrl {
                 $this->form->jobPlace = $record['job_place'];
                 $this->form->userName = $record['user_name'];
                 $this->form->role = $record['role'];
-                $this->form->password = $record['password'];
             } catch (\PDOException $e) {
                 Utils::addErrorMessage('Wystąpił błąd podczas odczytu rekordu');
                 if (App::getConf()->debug)
@@ -170,7 +169,7 @@ class PersonEditCtrl {
                             "job_place" => $this->form->jobPlace,
                             "user_name" => $this->form->userName,
                             "role" => $this->form->role,
-                            "password" => $this->form->password
+                            "password" => md5($this->form->password)
                         ]);
                     } else { //za dużo rekordów
                         // Gdy za dużo rekordów to pozostań na stronie
@@ -179,13 +178,26 @@ class PersonEditCtrl {
                         exit(); //zakończ przetwarzanie, aby nie dodać wiadomości o pomyślnym zapisie danych
                     }
                 } else {
+                    $user = App::getDB()->get("person", "*", [
+                        "id" => $this->form->id
+                    ]);
+                    
+                    if (empty(trim($this->form->password))) {
+                        $password = $user['password'];
+                    } else {
+                        $password = md5($this->form->password);
+                    }
+                    
                     //2.2 Edycja rekordu o danym ID
                     App::getDB()->update("person", [
                         "name" => $this->form->name,
                         "surname" => $this->form->surname,
                         "birthdate" => $this->form->birthdate,
                         "job_title" => $this->form->jobTitle,
-                        "job_place" => $this->form->jobPlace
+                        "job_place" => $this->form->jobPlace,
+                        "user_name" => $this->form->userName,
+                        "role" => $this->form->role,
+                        "password" => $password
                             ], [
                         "id" => $this->form->id
                     ]);

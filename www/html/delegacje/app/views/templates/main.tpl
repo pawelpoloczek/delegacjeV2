@@ -12,7 +12,6 @@
                 <body style="margin: 20px;">
 
                     <div class="pure-menu pure-menu-horizontal bottom-margin">
-
                         {if count($conf->roles)===1}
                             <a href="{$conf->action_root}delegationList" class="pure-menu-heading pure-menu-link">Delegacje</a>
                             <a href="{$conf->action_root}cityList" class="pure-menu-heading pure-menu-link">Miasta</a>

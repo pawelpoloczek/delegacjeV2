@@ -32,11 +32,15 @@
                 </div>
                 <div class="pure-control-group">
                     <label for="role">rola</label>
-                    <input id="role" type="text" placeholder="rola" name="role" value="{$form->role}">
+                    <select id="role" name="role">
+                        <option value="">wybierz rolę</option>
+                        <option {if $form->role == 'user'}selected="selected"{/if} value="user">użytkownik</option>
+                        <option {if $form->role == 'admin'}selected="selected"{/if} value="admin">administrator</option>
+                    </select>
                 </div>
                 <div class="pure-control-group">
                     <label for="password">hasło</label>
-                    <input id="password" type="password" placeholder="hasło" name="password" value="{$form->password}">
+                    <input id="password" type="password" placeholder="hasło" name="password">
                 </div>
                 <div class="pure-controls">
                     <input type="submit" class="pure-button pure-button-primary" value="Zapisz"/>
