@@ -20,7 +20,7 @@ class CarListCtrl {
     public function validate() {
         // 1. sprawdzenie, czy parametry zostały przekazane
         // - nie trzeba sprawdzać
-        $this->form->surname = ParamUtils::getFromRequest('sf_registrationnumber');
+        $this->form->registrationNumber = ParamUtils::getFromRequest('registration_number');
 
         // 2. sprawdzenie poprawności przekazanych parametrów
         // - nie trzeba sprawdzać
@@ -38,7 +38,7 @@ class CarListCtrl {
         // 2. Przygotowanie mapy z parametrami wyszukiwania (nazwa_kolumny => wartość)
         $search_params = []; //przygotowanie pustej struktury (aby była dostępna nawet gdy nie będzie zawierała wierszy)
         if (isset($this->form->registrationNumber) && strlen($this->form->registrationNumber) > 0) {
-            $search_params['registrationNumber[~]'] = $this->form->registrationNumber . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
+            $search_params['registration_number[~]'] = $this->form->registrationNumber . '%'; // dodanie symbolu % zastępuje dowolny ciąg znaków na końcu
         }
 
         // 3. Pobranie listy rekordów z bazy danych

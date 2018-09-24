@@ -15,7 +15,8 @@ class LoginCtrl {
     public function __construct() {
         //stworzenie potrzebnych obiektów
         $this->form = new LoginForm();
-    }
+    }// $this->form->userName = userName;
+        //$this->form->password = password;
 
     public function validate() {
         $this->form->login = ParamUtils::getFromRequest('login');

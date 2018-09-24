@@ -6,7 +6,7 @@
         <form class="pure-form pure-form-stacked" action="{$conf->action_url}cityList">
             <legend>Opcje wyszukiwania</legend>
             <fieldset>
-                <input type="text" placeholder="Nazwa miasta" name="sf_name" value="{$searchForm->name}" /><br />
+                <input type="text" placeholder="Nazwa miasta" name="name" value="{$searchForm->name}" /><br />
                 <button type="submit" class="pure-button pure-button-primary">Filtruj</button>
             </fieldset>
         </form>

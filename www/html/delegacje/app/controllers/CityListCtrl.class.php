@@ -20,7 +20,7 @@ class CityListCtrl {
     public function validate() {
         // 1. sprawdzenie, czy parametry zostały przekazane
         // - nie trzeba sprawdzać
-        $this->form->name = ParamUtils::getFromRequest('sf_name');
+        $this->form->name = ParamUtils::getFromRequest('name');
 
         // 2. sprawdzenie poprawności przekazanych parametrów
         // - nie trzeba sprawdzać
