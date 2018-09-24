@@ -193,6 +193,14 @@ class DelegationEditCtrl {
     }
 
     public function generateView() {
+        //pobranie listy miast, osób oraz samochów dla selectów w formularzu
+        $cities = App::getDB()->select('city', '*');
+        $persons = App::getDB()->select('person', '*');
+        $cars = App::getDB()->select('car', '*');
+        
+        App::getSmarty()->assign('cities', $cities);
+        App::getSmarty()->assign('persons', $persons);
+        App::getSmarty()->assign('cars', $cars);
         App::getSmarty()->assign('form', $this->form); // dane formularza dla widoku
         App::getSmarty()->display('DelegationEdit.tpl');
     }

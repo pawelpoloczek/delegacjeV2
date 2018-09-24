@@ -20,19 +20,38 @@
                 </div>
                 <div class="pure-control-group">
                     <label for="cityFrom">Miejsce początkowe</label>
-                    <input id="cityFrom" type="text" placeholder="" name="cityFrom" value="{$form->cityFrom}">
-                </div>
+                    <select id="cityFrom" name="cityFrom">
+                        <option value="">Wybierz miejsce początkowe</option>
+                        {foreach from=$cities item=city}
+                            <option value="{$city['id']}" {if $city['id'] == $form->cityFrom}selected="selected"{/if}>{$city['name']}</option>
+                        {/foreach}
+                    </select></div>
                 <div class="pure-control-group">
                     <label for="cityTo">Miejsce docelowe</label>
-                    <input id="cityTo" type="text" placeholder="" name="cityTo" value="{$form->cityTo}">
+                    <select id="cityTo" name="cityTo">
+                        <option value="">Wybierz miejsce docelowe</option>
+                        {foreach from=$cities item=city}
+                            <option value="{$city['id']}" {if $city['id'] == $form->cityTo}selected="selected"{/if}>{$city['name']}</option>
+                        {/foreach}
+                    </select>
                 </div>
                 <div class="pure-control-group">
                     <label for="personId">Pracownik</label>
-                    <input id="personId" type="text" placeholder="" name="personId" value="{$form->personId}">
+                    <select id="personId" name="personId">
+                        <option value="">Wybierz osobę</option>
+                        {foreach from=$persons item=person}
+                            <option value="{$person['id']}" {if $person['id'] == $form->personId}selected="selected"{/if}>{$person['name']} {$person['surname']} ({$person['user_name']})</option>
+                        {/foreach}
+                    </select>
                 </div>
                 <div class="pure-control-group">
                     <label for="carId">Samochód</label>
-                    <input id="carId" type="text" placeholder="" name="carId" value="{$form->carId}">
+                    <select id="carId" name="carId">
+                        <option value="">Wybierz samochód</option>
+                        {foreach from=$cars item=car}
+                            <option value="{$car['id']}" {if $car['id'] == $form->carId}selected="selected"{/if}>{$car['brand']}, {$car['model']}, {$car['registration_number']}</option>
+                        {/foreach}
+                    </select>
                 </div>
                 <div class="pure-controls">
                     <input type="submit" class="pure-button pure-button-primary" value="Zapisz"/>

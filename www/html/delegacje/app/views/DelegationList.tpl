@@ -7,7 +7,7 @@
             <legend>Opcje wyszukiwania</legend>
             <fieldset>
                 <input type="text" placeholder="Login użytkownika" name="personUserName" value="{$searchForm->personUserName}" /><br />
-                <button type="submit" class="pure-button pure-button-primary">Filtruj</button>
+                <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
             </fieldset>
         </form>
     </div>	
@@ -45,9 +45,9 @@
                         <td>{$d["name"]}, {$d["surname"]}, {$d["user_name"]}</td>
                         <td>{$d["brand"]}, {$d["model"]}, {$d["registration_number"]}</td>
                         <td>
-                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}delegationEdit/{$d['id']}">Edytuj</a>
+                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}delegationEdit/{$d['id']}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;
-                            <a class="button-small pure-button button-warning" href="{$conf->action_url}delegationDelete/{$d['id']}">Usuń</a>
+                            <a class="button-small pure-button button-warning" href="{$conf->action_url}delegationDelete/{$d['id']}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 {/strip}
