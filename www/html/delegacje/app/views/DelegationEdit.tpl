@@ -35,6 +35,7 @@
                         {/foreach}
                     </select>
                 </div>
+                {if isset($conf->roles['admin']) && $conf->roles['admin'] == true}    
                 <div class="pure-control-group">
                     <label for="personId">Pracownik</label>
                     <select id="personId" name="personId">
@@ -44,6 +45,9 @@
                         {/foreach}
                     </select>
                 </div>
+                {else}
+                    <input type="hidden" name="personId" value="{$conf->user['id']}" />
+                {/if}
                 <div class="pure-control-group">
                     <label for="carId">Samochód</label>
                     <select id="carId" name="carId">

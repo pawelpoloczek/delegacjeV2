@@ -52,6 +52,11 @@ class DelegationListCtrl {
             $where = &$search_params;
         }
         
+        if(\core\RoleUtils::inRole('user'))
+        {
+            $where = ['person.id' => App::getConf()->user['id']];
+        } 
+        
         /*
         $roles = App::getConf()->roles;
         if (false == isset($roles['admin']) || $roles['admin'] != true) {

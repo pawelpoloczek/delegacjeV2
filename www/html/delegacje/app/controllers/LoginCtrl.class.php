@@ -47,6 +47,7 @@ class LoginCtrl {
             Utils::addErrorMessage('Niepoprawny login lub hasło');
         } else {
             RoleUtils::addRole($user['role']);
+            RoleUtils::addUser($user);
         }
        
         return !App::getMessages()->isError();
@@ -71,7 +72,7 @@ class LoginCtrl {
         // 1. zakończenie sesji
         session_destroy();
         // 2. idź na stronę główną - system automatycznie przekieruje do strony logowania
-        App::getRouter()->redirectTo('delegationList');
+        App::getRouter()->redirectTo('login');
     }
 
     public function generateView() {

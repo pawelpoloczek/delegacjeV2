@@ -22,7 +22,7 @@
 
         </a>
     </div>	
-
+<div id="test" data-test="test test"></div>
     <table id="tab_people" class="pure-table pure-table-bordered">
         <thead>
             <tr>
@@ -51,6 +51,8 @@
                             <a class="button-small pure-button button-secondary" href="{$conf->action_url}personEdit/{$p['id']}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;
                             <a class="button-small pure-button button-warning" href="{$conf->action_url}personDelete/{$p['id']}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                             &nbsp;
+                            {*<a class="test" id="test" href="#">Pokaż delegacje</a>*}
                         </td>
                     </tr>
                 {/strip}

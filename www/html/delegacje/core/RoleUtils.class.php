@@ -12,7 +12,15 @@ class RoleUtils {
     public static function addRole($role) {
         App::getConf()->roles [$role] = true;
         $_SESSION['_role'] = serialize(App::getConf()->roles);
- //       var_dump($_SESSION['_role'] );
+    }
+    
+    /**
+     * @param array $user
+     */
+    public static function addUser(array $user)
+    {
+        App::getConf()->user = $user;
+        $_SESSION['_user'] = serialize($user);
     }
 
     public static function removeRole($role) {

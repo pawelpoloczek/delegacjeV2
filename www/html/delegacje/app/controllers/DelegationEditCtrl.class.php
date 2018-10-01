@@ -63,9 +63,9 @@ class DelegationEditCtrl {
         if ($check_distance === false) {
             Utils::addErrorMessage('Dystans musi być liczbą');
         }
-        
+
         //sprawdzenie poprawnosci daty
-        
+
         $sT = $this->form->startTime;
         $eT = $this->form->endTime;
 
@@ -79,7 +79,7 @@ class DelegationEditCtrl {
         if ($check_timeStart === false) {
             Utils::addErrorMessage('Zły format daty. Przykład: 2018-01-01 00:00:00 lub czeski błąd');
         }
-        
+
         return !App::getMessages()->isError();
     }
 
@@ -104,6 +104,14 @@ class DelegationEditCtrl {
                 $record = App::getDB()->get("delegation", "*", [
                     "id" => $this->form->id
                 ]);
+
+                if (\core\RoleUtils::inRole('user')) {
+                    if($record['person_id'] != App::getConf()->user['id']){
+                        Utils::addInfoMessage('Możesz edytować tylko własne delegacje.');
+                        App::getRouter()->forwardTo('delegationList');
+                    }
+                }
+
                 // 2.1 jeśli osoba istnieje to wpisz dane do obiektu formularza
                 $this->form->id = $record['id'];
                 $this->form->distance = $record['distance'];
@@ -151,6 +159,12 @@ class DelegationEditCtrl {
         if ($this->validateSave()) {
             // 2. Zapis danych w bazie
             try {
+                if (\core\RoleUtils::inRole('user')) {
+                    if($this->form->personId != App::getConf()->user['id']){
+                        Utils::addInfoMessage('Możesz edytować tylko własne delegacje.');
+                        App::getRouter()->forwardTo('delegationList');
+                    }
+                }
 
                 //2.1 Nowy rekord
                 if ($this->form->id == '') {
@@ -197,7 +211,7 @@ class DelegationEditCtrl {
         $cities = App::getDB()->select('city', '*');
         $persons = App::getDB()->select('person', '*');
         $cars = App::getDB()->select('car', '*');
-        
+
         App::getSmarty()->assign('cities', $cities);
         App::getSmarty()->assign('persons', $persons);
         App::getSmarty()->assign('cars', $cars);
