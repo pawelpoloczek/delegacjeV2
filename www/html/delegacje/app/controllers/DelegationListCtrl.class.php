@@ -51,6 +51,7 @@ class DelegationListCtrl {
         } else {
             $where = &$search_params;
         }
+        
         /*
         $roles = App::getConf()->roles;
         if (false == isset($roles['admin']) || $roles['admin'] != true) {
@@ -58,7 +59,7 @@ class DelegationListCtrl {
         }
         */
         //dodanie frazy sortującej po nazwisku
-        $where ["ORDER"] = "user_name";
+        $where ["ORDER"] = "id";
         //wykonanie zapytania
             
         try {

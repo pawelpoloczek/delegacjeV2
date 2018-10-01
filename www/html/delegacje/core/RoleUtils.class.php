@@ -11,13 +11,15 @@ class RoleUtils {
 
     public static function addRole($role) {
         App::getConf()->roles [$role] = true;
-        $_SESSION['_amelia_roles'] = serialize(App::getConf()->roles);
+        $_SESSION['_role'] = serialize(App::getConf()->roles);
+ //       var_dump($_SESSION['_role'] );
     }
 
     public static function removeRole($role) {
         if (isset(App::getConf()->roles [$role])) {
             unset(App::getConf()->roles [$role]);
-            $_SESSION['_amelia_roles'] = serialize(App::getConf()->roles);
+            $_SESSION['_role'] = serialize(App::getConf()->roles);
+            
         }
     }
 
@@ -27,10 +29,13 @@ class RoleUtils {
 
     public static function requireRole($role, $fail_action = null) {
         if (!self::inRole($role)) {
-            if (isset($fail_action))
+            if (isset($fail_action)) {
+                $msg = 'Nie posiadasz uprawnień do podglądu tej strony.';
+                Utils::addInfoMessage($msg);
                 App::getRouter()->forwardTo($fail_action);
-            else
+            } else {
                 App::getRouter()->forwardTo(App::getRouter()->getLoginRoute());
+            }
         }
     }
 

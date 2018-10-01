@@ -29,8 +29,8 @@ class Router {
         $this->routes[$action] = new Route($namespace, $controller, $method, $roles);
     }
 
-    public function addRoute($action, $controller, $roles = null) {
-        $this->routes[$action] = new Route(null, $controller, 'action_'.$action, $roles);
+    public function addRoute($action, $controller, $roles = null, $redirectPath = null) {
+        $this->routes[$action] = new Route(null, $controller, 'action_'.$action, $roles, $redirectPath);
     }
 
     public function setDefaultRoute($route) {
@@ -49,7 +49,7 @@ class Router {
         return $this->login;
     }
     
-    private function control($namespace, $controller, $method, $roles = null) {
+    private function control($namespace, $controller, $method, $roles = null, $redirectPath = null) {
         if (!empty($roles)) {
             $found = false;
             if (is_array($roles)) {
@@ -63,8 +63,15 @@ class Router {
                 if (RoleUtils::inRole($roles))
                     $found = true;
             }
-            if (!$found)
+            if (!$found) {
+                $msg = 'Nie posiadasz uprawnień do podglądu tej strony.';
+                Utils::addInfoMessage($msg);
+                
+                if (null != $redirectPath) {
+                    $this->forwardTo($redirectPath);
+                }
                 $this->forwardTo($this->login);
+            }
         }
         if (empty($namespace)) {
             $controller = "app\\controllers\\" . $controller;
@@ -83,11 +90,11 @@ class Router {
     public function go() {
         if (isset($this->routes[$this->action])) {
             $r = $this->routes[$this->action];
-            $this->control($r->namespace, $r->controller, $r->method, $r->roles);
+            $this->control($r->namespace, $r->controller, $r->method, $r->roles, $r->redirectPath);
         } else {
             if (isset($this->default) && isset($this->routes[$this->default])) {
                 $r = $this->routes[$this->default];
-                $this->control($r->namespace, $r->controller, $r->method, $r->roles);
+                $this->control($r->namespace, $r->controller, $r->method, $r->roles, $r->redirectPath);
             } else {
                 throw new \Exception('Route for "' . $this->action . '" is not defined');
             }

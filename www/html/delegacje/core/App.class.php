@@ -42,7 +42,7 @@ class App {
 
         //start session and load roles
         session_start();
-        self::$config->roles = isset($_SESSION['_amelia_roles']) ? unserialize($_SESSION['_amelia_roles']) : array();
+        self::$config->roles = isset($_SESSION['_role']) ? unserialize($_SESSION['_role']) : array();
 
         //load parameters from clean URL and load action
         if (self::$config->clean_urls) {

@@ -3,5 +3,5 @@
 namespace app\forms;
 
 class CitySearchForm {
-	public $name;
+	public $sf_name;
 } 

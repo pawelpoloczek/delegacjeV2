@@ -9,8 +9,8 @@ namespace core;
  */
 class Utils {
 
-    public static function addRoute($action, $controller, $roles = null) {
-        App::getRouter()->addRoute($action, $controller, $roles);
+    public static function addRoute($action, $controller, $roles = null, $redirectPath = null) {
+        App::getRouter()->addRoute($action, $controller, $roles, $redirectPath);
     }
 
     public static function addRouteEx($action, $path, $controller, $method, $roles = null) {

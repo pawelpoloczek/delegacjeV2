@@ -6,8 +6,8 @@
         <form class="pure-form pure-form-stacked" action="{$conf->action_url}personList">
             <legend>Opcje wyszukiwania</legend>
             <fieldset>
-                <input type="text" placeholder="nazwisko" name="sf_surname" value="{$searchForm->surname}" /><br />
-                <button type="submit" class="pure-button pure-button-primary">Filtruj</button>
+                <input type="text" placeholder="nazwisko" name="sf_surname" value="{$searchForm->surname}" />
+                <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
             </fieldset>
         </form>
     </div>	
@@ -17,7 +17,10 @@
 {block name=bottom}
 
     <div class="bottom-margin">
-        <a class="pure-button button-success" href="{$conf->action_root}personNew">Dodaj osobę</a>
+        <a class="pure-button button-success" href="{$conf->action_root}personNew"><i class="fa fa-plus-circle" aria-hidden="true"></i>
+<i class="fa fa-users" aria-hidden="true"></i>
+
+        </a>
     </div>	
 
     <table id="tab_people" class="pure-table pure-table-bordered">
@@ -45,9 +48,9 @@
                         <td>{$p["user_name"]}</td>
                         <td>{$p["role"]}</td>
                         <td>
-                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}personEdit/{$p['id']}">Edytuj</a>
+                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}personEdit/{$p['id']}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                             &nbsp;
-                            <a class="button-small pure-button button-warning" href="{$conf->action_url}personDelete/{$p['id']}">Usuń</a>
+                            <a class="button-small pure-button button-warning" href="{$conf->action_url}personDelete/{$p['id']}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 {/strip}

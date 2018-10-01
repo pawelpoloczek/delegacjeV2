@@ -3,38 +3,38 @@
 use core\App;
 use core\Utils;
 
-App::getRouter()->setDefaultRoute('personList'); // akcja/ścieżka domyślna
+App::getRouter()->setDefaultRoute('delegationList'); // akcja/ścieżka domyślna
 App::getRouter()->setLoginRoute('login'); // akcja/ścieżka na potrzeby logowania (przekierowanie, gdy nie ma dostępu)
 //login
 Utils::addRoute('login', 'LoginCtrl');
-Utils::addRoute('logout', 'LoginCtrl');
+Utils::addRoute('logout', 'LoginCtrl', ['user', 'admin']);
 Utils::addRoute('loginShow', 'LoginCtrl');
 
 //person
-Utils::addRoute('personList', 'PersonListCtrl', ['user', 'admin']);
-Utils::addRoute('personNew', 'PersonEditCtrl', ['user', 'admin']);
-Utils::addRoute('personEdit', 'PersonEditCtrl', ['user', 'admin']);
-Utils::addRoute('personSave', 'PersonEditCtrl', ['user', 'admin']);
-Utils::addRoute('personDelete', 'PersonEditCtrl', ['admin']);
+Utils::addRoute('personList', 'PersonListCtrl', ['admin'], 'delegationList');
+Utils::addRoute('personNew', 'PersonEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('personEdit', 'PersonEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('personSave', 'PersonEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('personDelete', 'PersonEditCtrl', ['admin'], 'delegationList');
 
 //cars
-Utils::addRoute('carList', 'CarListCtrl', ['user', 'admin']);
-Utils::addRoute('carNew', 'CarEditCtrl', ['admin']);
-Utils::addRoute('carEdit', 'CarEditCtrl', ['admin']);
-Utils::addRoute('carSave', 'CarEditCtrl', ['admin']);
-Utils::addRoute('carDelete', 'CarEditCtrl', ['admin']);
+Utils::addRoute('carList', 'CarListCtrl', ['admin'], 'delegationList');
+Utils::addRoute('carNew', 'CarEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('carEdit', 'CarEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('carSave', 'CarEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('carDelete', 'CarEditCtrl', ['admin'], 'delegationList');
 
 //city
-Utils::addRoute('cityList', 'CityListCtrl', ['user', 'admin']);
-Utils::addRoute('cityNew', 'CityEditCtrl', ['admin']);
-Utils::addRoute('cityEdit', 'CityEditCtrl', ['admin']);
-Utils::addRoute('citySave', 'CityEditCtrl', ['admin']);
-Utils::addRoute('cityDelete', 'CityEditCtrl', ['admin']);
+Utils::addRoute('cityList', 'CityListCtrl', ['admin'], 'delegationList');
+Utils::addRoute('cityNew', 'CityEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('cityEdit', 'CityEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('citySave', 'CityEditCtrl', ['admin'], 'delegationList');
+Utils::addRoute('cityDelete', 'CityEditCtrl', ['admin'], 'delegationList');
 
 //delegation
 Utils::addRoute('delegationList', 'DelegationListCtrl', ['user', 'admin']);
-Utils::addRoute('delegationNew', 'DelegationEditCtrl', ['admin']);
-Utils::addRoute('delegationEdit', 'DelegationEditCtrl', ['admin']);
-Utils::addRoute('delegationSave', 'DelegationEditCtrl', ['admin']);
-Utils::addRoute('delegationDelete', 'DelegationEditCtrl', ['admin']);
+Utils::addRoute('delegationNew', 'DelegationEditCtrl', ['user', 'admin']);
+Utils::addRoute('delegationEdit', 'DelegationEditCtrl', ['user', 'admin']);
+Utils::addRoute('delegationSave', 'DelegationEditCtrl', ['user', 'admin']);
+Utils::addRoute('delegationDelete', 'DelegationEditCtrl', ['user', 'admin']);
 

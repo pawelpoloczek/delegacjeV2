@@ -5,7 +5,6 @@ namespace app\controllers;
 use core\App;
 use core\Utils;
 use core\ParamUtils;
-use core\Validator;
 use app\forms\CityEditForm;
 
 class CityEditCtrl {
@@ -34,14 +33,8 @@ class CityEditCtrl {
             return false;
 
         // 2. sprawdzenie poprawności przekazanych parametrów
-
-        $check_name = $this->form->name;
-
-        if (ctype_alpha($check_name) === false) {
-            Utils::addErrorMessage('Błędna nazwa');
-        }
-
-$this->form->name = ucfirst($check_name);
+     
+$this->form->name = ucfirst($this->form->name);
 
         
         return !App::getMessages()->isError();
@@ -104,7 +97,7 @@ $this->form->name = ucfirst($check_name);
     }
 
     public function action_citySave() {
-
+    
         // 1. Walidacja danych formularza (z pobraniem)
         if ($this->validateSave()) {
             // 2. Zapis danych w bazie

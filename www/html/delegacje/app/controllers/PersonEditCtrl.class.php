@@ -63,14 +63,18 @@ class PersonEditCtrl {
             return false;
 
         // 2. sprawdzenie poprawności przekazanych parametrów
+
+        
+
         $check_birth = $this->form->birthdate;
         $check_name = $this->form->name;
         $check_surname = $this->form->surname;
 
         $d = checkdate(substr($check_birth, 5, 2), substr($check_birth, 8, 2), substr($check_birth, 0, 4));
         if ($d === false || strlen($check_birth) <> 10) {
-            Utils::addErrorMessage('Zły format daty. Przykład: 2018-12-20 lub błędna data');
+            Utils::addErrorMessage('Zły format daty. Przykład: 2018-12-20 lub data nie istnieje');
         }
+        
 
         function my_mb_ucfirst($str) {
             $fc = mb_strtoupper(mb_substr($str, 0, 1));
@@ -80,10 +84,17 @@ class PersonEditCtrl {
         $this->form->name = my_mb_ucfirst($check_name);
         $this->form->surname = my_mb_ucfirst($check_surname);
 
-        if (ctype_alpha($check_name) === false || ctype_alpha($check_surname) === false) {
-            Utils::addErrorMessage('Błędne imię lub nazwisko');
-        }
-
+//        $test = App::getDB()->get('person', '*', [
+//                                'user_name' => $this->form->userName
+//                ]);
+//        $testUser = $test['user_name'];
+//        var_dump($test);         
+//        var_dump($test['user_name'] === $testUser);die;
+//        
+//        if($test['user_name'] === $testUser)
+//        {
+//            Utils::addErrorMessage('Podany użytkownik już istnieje');
+//        }
         return !App::getMessages()->isError();
     }
 
@@ -160,7 +171,7 @@ class PersonEditCtrl {
                 if ($this->form->id == '') {
                     //sprawdź liczebność rekordów - nie pozwalaj przekroczyć 20
                     $count = App::getDB()->count("person");
-                    if ($count <= 20) {
+                    
                         App::getDB()->insert("person", [
                             "name" => $this->form->name,
                             "surname" => $this->form->surname,
@@ -171,12 +182,6 @@ class PersonEditCtrl {
                             "role" => $this->form->role,
                             "password" => md5($this->form->password)
                         ]);
-                    } else { //za dużo rekordów
-                        // Gdy za dużo rekordów to pozostań na stronie
-                        Utils::addInfoMessage('Ograniczenie: Zbyt dużo rekordów. Aby dodać nowy usuń wybrany wpis.');
-                        $this->generateView(); //pozostań na stronie edycji
-                        exit(); //zakończ przetwarzanie, aby nie dodać wiadomości o pomyślnym zapisie danych
-                    }
                 } else {
                     $user = App::getDB()->get("person", "*", [
                         "id" => $this->form->id

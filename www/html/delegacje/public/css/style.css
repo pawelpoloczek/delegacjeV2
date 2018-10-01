@@ -12,11 +12,17 @@
 
 .bottom-margin{
 	margin-bottom: 1em;
+        align-content:center;
+        
+        
 }
 
 .top-margin{
 	margin-top: 1em;
+        
 }
+
+
 
 .button-success,
 .button-error,
@@ -57,4 +63,10 @@
 
 .button-xlarge {
     font-size: 125%;
+}
+
+#buttonlogout {
+    position: absolute;
+    top: 0%;
+    right: 0%;
 }

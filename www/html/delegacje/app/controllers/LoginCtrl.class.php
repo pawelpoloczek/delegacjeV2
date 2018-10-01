@@ -48,7 +48,7 @@ class LoginCtrl {
         } else {
             RoleUtils::addRole($user['role']);
         }
-
+       
         return !App::getMessages()->isError();
     }
 
@@ -60,7 +60,7 @@ class LoginCtrl {
         if ($this->validate()) {
             //zalogowany => przekieruj na główną akcję (z przekazaniem messages przez sesję)
             Utils::addErrorMessage('Poprawnie zalogowano do systemu');
-            App::getRouter()->redirectTo("personList");
+            App::getRouter()->redirectTo("delegationList");
         } else {
             //niezalogowany => pozostań na stronie logowania
             $this->generateView();
@@ -71,7 +71,7 @@ class LoginCtrl {
         // 1. zakończenie sesji
         session_destroy();
         // 2. idź na stronę główną - system automatycznie przekieruje do strony logowania
-        App::getRouter()->redirectTo('personList');
+        App::getRouter()->redirectTo('delegationList');
     }
 
     public function generateView() {
