@@ -17,12 +17,11 @@
 {block name=bottom}
 
     <div class="bottom-margin">
-        <a class="pure-button button-success" href="{$conf->action_root}personNew"><i class="fa fa-plus-circle" aria-hidden="true"></i>
-<i class="fa fa-users" aria-hidden="true"></i>
-
+        <a class="pure-button button-success" href="{$conf->action_root}personNew">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <i class="fa fa-users" aria-hidden="true"></i>
         </a>
-    </div>	
-<div id="test" data-test="test test"></div>
+    </div>
     <table id="tab_people" class="pure-table pure-table-bordered">
         <thead>
             <tr>
@@ -48,16 +47,20 @@
                         <td>{$p["user_name"]}</td>
                         <td>{$p["role"]}</td>
                         <td>
-                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}personEdit/{$p['id']}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            &nbsp;
-                            <a class="button-small pure-button button-warning" href="{$conf->action_url}personDelete/{$p['id']}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                             &nbsp;
-                            {*<a class="test" id="test" href="#">Pokaż delegacje</a>*}
+                            <a class="button-small pure-button button-secondary" href="{$conf->action_url}personEdit/{$p['id']}">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </a>&nbsp;
+                            <a class="button-small pure-button button-warning" href="{$conf->action_url}personDelete/{$p['id']}">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a> &nbsp;
+                            <a class="show-delegations" data-url="{$conf->action_url}delegationAjax?user={$p['id']}" href="#">Pokaż delegacje</a>
                         </td>
                     </tr>
                 {/strip}
             {/foreach}
         </tbody>
     </table>
-
+    <div class='delegations'></div>
+    <script type="text/javascript" src="{$conf->app_url}/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{$conf->app_url}/js/main.js"></script>
 {/block}

@@ -38,3 +38,6 @@ Utils::addRoute('delegationEdit', 'DelegationEditCtrl', ['user', 'admin']);
 Utils::addRoute('delegationSave', 'DelegationEditCtrl', ['user', 'admin']);
 Utils::addRoute('delegationDelete', 'DelegationEditCtrl', ['user', 'admin']);
 
+//delegation for ajax request
+Utils::addRoute('delegationAjax', 'DelegationAjaxCtrl');
+
